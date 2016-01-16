@@ -21,6 +21,7 @@
     sql: ${TABLE}.domain
 
   - dimension_group: event_dt
+    label: 'Event'
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.event_dt

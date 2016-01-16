@@ -2,6 +2,12 @@
   sql_table_name: fw.sent
   fields:
 
+  - dimension: uid
+    type: int
+    sql: CONCAT(${TABLE}.job_id,${TABLE}.subscriber_id)
+    primary_key: true
+    hidden: true
+
   - dimension: bu
     type: string
     sql: ${TABLE}.bu
@@ -16,6 +22,7 @@
     sql: ${TABLE}.domain
 
   - dimension_group: event_dt
+    label: 'Event'
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.event_dt
