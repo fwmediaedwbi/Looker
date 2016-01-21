@@ -4,31 +4,32 @@
 - include: "*.dashboard.lookml"  # include all the dashboards
 
 
-- explore: sent
+- explore: emails
+  from: sent
   joins:
     - join: bu
       type: left_outer 
-      sql_on: ${sent.bu_id} = ${bu.bu_id}
+      sql_on: ${emails.bu_id} = ${bu.bu_id}
       relationship: many_to_one
 
     - join: jobs
       type: left_outer 
-      sql_on: ${sent.job_id} = ${jobs.job_id}
+      sql_on: ${emails.job_id} = ${jobs.job_id}
       relationship: many_to_one
       
     - join: clicks
       type: left_outer
-      sql_on: ${sent.job_id} = ${clicks.job_id} AND ${sent.subscriber_id} = ${clicks.subscriber_id}
+      sql_on: ${emails.job_id} = ${clicks.job_id} AND ${emails.subscriber_id} = ${clicks.subscriber_id}
       relationship: one_to_many
       
     - join: complaints
       type: left_outer
-      sql_on: ${sent.job_id} = ${complaints.job_id} AND ${sent.subscriber_id} = ${complaints.subscriber_id}
+      sql_on: ${emails.job_id} = ${complaints.job_id} AND ${emails.subscriber_id} = ${complaints.subscriber_id}
       relationship: one_to_many
       
     - join: opens
       type: left_outer
-      sql_on: ${sent.job_id} = ${opens.job_id} AND ${sent.subscriber_id} = ${opens.subscriber_id}
+      sql_on: ${emails.job_id} = ${opens.job_id} AND ${emails.subscriber_id} = ${opens.subscriber_id}
       relationship: one_to_many
       
 #     - join: subscribed
@@ -38,7 +39,7 @@
       
     - join: unsubscribe
       type: left_outer
-      sql_on: ${sent.job_id} = ${unsubscribe.job_id} AND ${sent.subscriber_id} = ${unsubscribe.subscriber_id}
+      sql_on: ${emails.job_id} = ${unsubscribe.job_id} AND ${emails.subscriber_id} = ${unsubscribe.subscriber_id}
       relationship: one_to_many
       
 #     - join: users

@@ -43,4 +43,17 @@
   - measure: count
     type: count
     drill_fields: [bu.bu_name, bu.bu_id, jobs.from_name, jobs.email_name, jobs.job_id]
+    
+  - measure: open_rate
+    type: number
+    sql: ${opens.count}/NULLIF(${count},0)
+    value_format: '#.##%'
+    description: "Count of opens over count of sents."
+    
+  - measure: click_rate
+    type: number
+    sql: ${clicks.count}/NULLIF(${opens.count},0)
+    value_format: '#.##%'
+    description: "Count of clicks over count of opens."
+    
 

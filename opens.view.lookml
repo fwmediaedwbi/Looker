@@ -2,6 +2,12 @@
   sql_table_name: fw.opens
   fields:
 
+  - dimension: uid
+    type: int
+    sql: CONCAT(${TABLE}.job_id,${TABLE}.subscriber_id)
+    primary_key: true
+    hidden: true
+
   - dimension: bu
     type: string
     sql: ${TABLE}.bu
