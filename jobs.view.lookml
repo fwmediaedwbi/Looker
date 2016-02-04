@@ -4,7 +4,7 @@
 
   - dimension: job_id
     primary_key: true
-    type: int
+    type: number
     sql: ${TABLE}.job_id
 
   - dimension: bu
@@ -12,12 +12,12 @@
     sql: ${TABLE}.bu
 
   - dimension: bu_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.bu_id
 
   - dimension: email_id
-    type: int
+    type: number
     sql: ${TABLE}.email_id
 
   - dimension: email_name
@@ -35,7 +35,7 @@
     sql: ${TABLE}.event_dt
 
   - dimension: event_id
-    type: int
+    type: number
     sql: ${TABLE}.event_id
 
   - dimension: from_email
@@ -68,4 +68,3 @@
     - opens.count
     - sent.count
     - unsubscribe.count
-

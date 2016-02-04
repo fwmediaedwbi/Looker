@@ -4,7 +4,7 @@
 
   - dimension: unsubscribe_id
     primary_key: true
-    type: int
+    type: number
     sql: ${TABLE}.unsubscribe_id
 
   - dimension: bu
@@ -12,7 +12,7 @@
     sql: ${TABLE}.bu
 
   - dimension: bu_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.bu_id
 
@@ -31,12 +31,12 @@
     sql: ${TABLE}.is_unique
 
   - dimension: job_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.job_id
 
   - dimension: subscriber_id
-    type: int
+    type: number
     sql: ${TABLE}.subscriber_id
 
   - dimension: subscriber_key
@@ -57,4 +57,3 @@
     - jobs.from_name
     - jobs.email_name
     - jobs.job_id
-

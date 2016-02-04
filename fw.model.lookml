@@ -47,7 +47,25 @@
 #       sql_on: ${} = ${}
 #       relationship:
       
-      
+
+### Redshift Admin ###
+- explore: data_loads
+  hidden: true
+
+- explore: db_space
+  label: 'DB Space'
+  hidden: true
+
+- explore: etl_errors
+  label: 'ETL Errors'
+  hidden: true
+
+- explore: table_skew
+  hidden: true
+
+- explore: view_definitions
+  from: pg_views
+  hidden: true
 
 
 

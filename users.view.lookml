@@ -4,7 +4,7 @@
 
   - dimension: dw_user_id
     primary_key: true
-    type: int
+    type: number
     sql: ${TABLE}.dw_user_id
 
   - dimension: email_address
@@ -12,10 +12,9 @@
     sql: ${TABLE}.email_address
 
   - dimension: subscriber_id
-    type: int
+    type: number
     sql: ${TABLE}.subscriber_id
 
   - measure: count
     type: count
     drill_fields: [dw_user_id]
-

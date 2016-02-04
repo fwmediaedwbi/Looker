@@ -4,7 +4,7 @@
 
   - dimension: bu_id
     primary_key: true
-    type: int
+    type: number
     sql: ${TABLE}.bu_id
 
   - dimension: bu_name
@@ -28,4 +28,3 @@
     - sent.count
     - subscribed.count
     - unsubscribe.count
-

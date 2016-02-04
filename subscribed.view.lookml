@@ -3,12 +3,12 @@
   fields:
 
   - dimension: bu_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.bu_id
 
   - dimension: dw_user_id
-    type: int
+    type: number
     sql: ${TABLE}.dw_user_id
 
   - dimension_group: event
@@ -21,10 +21,9 @@
     sql: ${TABLE}.subscribed
 
   - dimension: subscriber_id
-    type: int
+    type: number
     sql: ${TABLE}.subscriber_id
 
   - measure: count
     type: count
     drill_fields: [bu.bu_name, bu.bu_id]
-

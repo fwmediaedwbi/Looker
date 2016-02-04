@@ -3,7 +3,7 @@
   fields:
 
   - dimension: uid
-    type: int
+    type: number
     sql: CONCAT(${TABLE}.job_id,${TABLE}.subscriber_id)
     primary_key: true
     hidden: true
@@ -13,7 +13,7 @@
     sql: ${TABLE}.bu
 
   - dimension: bu_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.bu_id
 
@@ -32,12 +32,12 @@
     sql: ${TABLE}.is_unique
 
   - dimension: job_id
-    type: int
+    type: number
     # hidden: true
     sql: ${TABLE}.job_id
 
   - dimension: subscriber_id
-    type: int
+    type: number
     sql: ${TABLE}.subscriber_id
 
   - dimension: subscriber_key
@@ -55,4 +55,3 @@
   - measure: count
     type: count
     drill_fields: [bu.bu_name, bu.bu_id, jobs.from_name, jobs.email_name, jobs.job_id]
-
