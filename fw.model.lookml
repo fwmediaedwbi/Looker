@@ -46,6 +46,8 @@
 #       type: left_outer
 #       sql_on: ${} = ${}
 #       relationship:
+
+- explore: facts_user_sent
       
 
 ### Redshift Admin ###

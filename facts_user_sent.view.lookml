@@ -1,9 +1,9 @@
-
 - view: facts_user_sent
-  sql_trigger_value: SELECT current_date
-  distkey: bu_id
-  sortkeys: [bu_id,subscriber_id]
   derived_table:
+    sql_trigger_value: SELECT current_date
+    distkey: bu_id
+    sortkeys: [bu_id,subscriber_id]
+
     sql: |
             select 
               sent.subscriber_id
@@ -68,7 +68,7 @@
                   and sent.job_id = clicks.job_id
                   
                   
-            group by 1,2;
+            group by 1,2
 
   fields:
   - measure: count
