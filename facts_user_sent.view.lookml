@@ -1,5 +1,8 @@
 
 - view: facts_user_sent
+  sql_trigger_value: SELECT current_date
+  distkey: bu_id
+  sortkeys: [bu_id,subscriber_id]
   derived_table:
     sql: |
             select 
