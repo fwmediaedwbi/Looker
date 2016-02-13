@@ -25,7 +25,7 @@
               , count ( case when opens_dt > (current_date - 90) then 1 else 0 end) as emails_opened_in_the_last_90_days
               
               , sum ( case when clicks_dt is NULL then 0 else 1 end) as clicks
-              , max (clicks.event_dt) as most_recent_click
+              , max (clicks_dt) as most_recent_click
               , count ( case when clicks_dt > (current_date - 7) then 1 else NULL end) as emails_clicked_in_the_last_7_days
               , count ( case when clicks_dt > (current_date - 14) then 1 else NULL end) as emails_clicked_in_the_last_14_days
               , count ( case when clicks_dt > (current_date - 30) then 1 else NULL end) as emails_clicked_in_the_last_30_days
