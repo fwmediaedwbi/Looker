@@ -6,68 +6,37 @@
 
     sql: |
             select 
-              sent.subscriber_id
-              , sent.bu_id
+              subscriber_id
+              , bu_id
               , count(*) as sents
-              , max(sent.event_dt) as most_recent_sent
-              , count( case when sent.event_dt > (current_date - 7) then 1 else NULL end) as emails_sent_in_the_last_7_days
-              , count( case when sent.event_dt > (current_date - 14) then 1 else NULL end) as emails_sent_in_the_last_14_days
-              , count( case when sent.event_dt > (current_date - 30) then 1 else NULL end) as emails_sent_in_the_last_30_days
-              , count( case when sent.event_dt > (current_date - 60) then 1 else NULL end) as emails_sent_in_the_last_60_days
-              , count( case when sent.event_dt > (current_date - 90) then 1 else NULL end) as emails_sent_in_the_last_90_days
+              , max(sent_dt) as most_recent_sent
+              , count( case when sent_dt > (current_date - 7) then 1 else NULL end) as emails_sent_in_the_last_7_days
+              , count( case when sent_dt > (current_date - 14) then 1 else NULL end) as emails_sent_in_the_last_14_days
+              , count( case when sent_dt > (current_date - 30) then 1 else NULL end) as emails_sent_in_the_last_30_days
+              , count( case when sent_dt > (current_date - 60) then 1 else NULL end) as emails_sent_in_the_last_60_days
+              , count( case when sent_dt > (current_date - 90) then 1 else NULL end) as emails_sent_in_the_last_90_days
               
-              , count ( distinct opens.job_id) as opens
-              , max(opens.event_dt) as most_recent_open
-              , count ( distinct case when opens.event_dt > (current_date - 7) then opens.job_id else NULL end) as emails_opened_in_the_last_7_days
-              , count ( distinct case when opens.event_dt > (current_date - 14) then opens.job_id else NULL end) as emails_opened_in_the_last_14_days
-              , count ( distinct case when opens.event_dt > (current_date - 30) then opens.job_id else NULL end) as emails_opened_in_the_last_30_days
-              , count ( distinct case when opens.event_dt > (current_date - 60) then opens.job_id else NULL end) as emails_opened_in_the_last_60_days
-              , count ( distinct case when opens.event_dt > (current_date - 90) then opens.job_id else NULL end) as emails_opened_in_the_last_90_days
+              , sum ( case when opens_dt is NULL then 0 else 1 end) as opens
+              , max (opens_dt) as most_recent_open
+              , count ( case when opens_dt > (current_date - 7) then 1 else 0 end) as emails_opened_in_the_last_7_days
+              , count ( case when opens_dt > (current_date - 14) then 1 else 0 end) as emails_opened_in_the_last_14_days
+              , count ( case when opens_dt > (current_date - 30) then 1 else 0 end) as emails_opened_in_the_last_30_days
+              , count ( case when opens_dt > (current_date - 60) then 1_id else 0 end) as emails_opened_in_the_last_60_days
+              , count ( case when opens_dt > (current_date - 90) then 1 else 0 end) as emails_opened_in_the_last_90_days
               
-              , count (distinct clicks.job_id) as clicks
-              , max(clicks.event_dt) as most_recent_click
-              , count ( distinct case when clicks.event_dt > (current_date - 7) then clicks.job_id else NULL end) as emails_clicked_in_the_last_7_days
-              , count ( distinct case when clicks.event_dt > (current_date - 14) then clicks.job_id else NULL end) as emails_clicked_in_the_last_14_days
-              , count ( distinct case when clicks.event_dt > (current_date - 30) then clicks.job_id else NULL end) as emails_clicked_in_the_last_30_days
-              , count ( distinct case when clicks.event_dt > (current_date - 60) then clicks.job_id else NULL end) as emails_clicked_in_the_last_60_days
-              , count ( distinct case when clicks.event_dt > (current_date - 90) then clicks.job_id else NULL end) as emails_clicked_in_the_last_90_days
+              , sum ( case when clicks_dt is NULL then 0 else 1 end) as clicks
+              , max (clicks.event_dt) as most_recent_click
+              , count ( case when clicks_dt > (current_date - 7) then 1 else NULL end) as emails_clicked_in_the_last_7_days
+              , count ( case when clicks_dt > (current_date - 14) then 1 else NULL end) as emails_clicked_in_the_last_14_days
+              , count ( case when clicks_dt > (current_date - 30) then 1 else NULL end) as emails_clicked_in_the_last_30_days
+              , count ( case when clicks_dt > (current_date - 60) then 1 else NULL end) as emails_clicked_in_the_last_60_days
+              , count ( case when clicks_dt > (current_date - 90) then 1 else NULL end) as emails_clicked_in_the_last_90_days
               
-              , avg( datediff( day,sent.event_dt, opens.event_dt)) as average_days_between_sent_and_open
-              , avg( case when sent.event_dt > (current_date - 14) then datediff(day,sent.event_dt, opens.event_dt) else NULL end) as average_days_between_sent_and_open_in_last_14_days
+              , avg( datediff( day,sent_dt, opens_dt)) as average_days_between_sent_and_open
+              , avg( case when sent_dt > (current_date - 14) then datediff(day,sent_dt, opens_dt) else NULL end) as average_days_between_sent_and_open_in_last_14_days
               
-            from sent
-            join
-              (
-                select
-                  subscriber_id
-                  , bu_id
-                  , job_id
-                  , min(event_dt) as event_dt
-                from
-                  opens
-                group by 
-                  1,2,3
-                ) opens
-                  on sent.subscriber_id = opens.subscriber_id
-                  and sent.bu_id = opens.bu_id
-                  and sent.job_id = opens.job_id
-            join
-              (
-                select
-                  subscriber_id
-                  , bu_id
-                  , job_id
-                  , min(event_dt) as event_dt
-                from
-                  clicks
-                group by 
-                  1,2,3
-                ) clicks
-                  on sent.subscriber_id = clicks.subscriber_id
-                  and sent.bu_id = clicks.bu_id
-                  and sent.job_id = clicks.job_id
-                  
-                  
+            from fw.emails
+            
             group by 1,2
 
   fields:
@@ -94,10 +63,18 @@
   - dimension: "emails_sent_in_the_last_7_days"
     type: number
     sql: ${TABLE}.emails_sent_in_the_last_7_days
-
+    
   - dimension: "emails_sent_in_the_last_14_days"
     type: number
     sql: ${TABLE}.emails_sent_in_the_last_14_days
+    
+  - dimension: emails_received_in_the_last_14_days
+    view_label: "Cohort"
+    sql: |
+      CASE  WHEN ${emails_sent_in_the_last_14_days} <6 THEN "Less than 6"
+            WHEN ${emails_sent_in_the_last_14_days} <15 THEN "Less than 15"
+            WHEN ${emails_sent_in_the_last_14_days} <25 THEN "Less than 25"
+            ELSE "Over 25" END
 
   - dimension: "emails_sent_in_the_last_30_days"
     type: number
@@ -174,6 +151,10 @@
   - dimension: "average_days_between_sent_and_open_in_last_14_days"
     type: number
     sql: ${TABLE}.average_days_between_sent_and_open_in_last_14_days
+    
+  - measure: users
+    type: count_distinct
+    sql: subscriber_id||bu_id
 
   sets:
     detail:

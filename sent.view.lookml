@@ -46,13 +46,14 @@
     
   - measure: open_rate
     type: number
-    sql: ${opens.count}/NULLIF(${count},0)
-    value_format: '#.##%'
+    sql: 1.0 * ${opens.count}/NULLIF(${count},0)
+    value_format: '0.00%'
     description: "Count of opens over count of sents."
+    
     
   - measure: click_rate
     type: number
-    sql: ${clicks.count}/NULLIF(${opens.count},0)
-    value_format: '#.##%'
+    sql: 1.0 * ${clicks.count}/NULLIF(${opens.count},0)
+    value_format: '0.00%'
     description: "Count of clicks over count of opens."
     

@@ -6,6 +6,7 @@
 
 - explore: emails
   from: sent
+  persist_for: 6 hours
   joins:
     - join: bu
       type: left_outer 
@@ -47,7 +48,27 @@
 #       sql_on: ${} = ${}
 #       relationship:
 
-- explore: facts_user_sent
+    - join: facts_user_sent
+      sql_on: |
+        ${emails.bu_id} = ${facts_user_sent.bu_id}
+        AND ${emails.subscriber_id} = ${facts_user_sent.subscriber_id}
+      relationship: many_to_one
+      
+      
+- explore: email
+  joins:
+    - join: jobs
+      sql_on: |
+        ${email.job_id} = ${jobs.job_id}
+        AND ${email.bu_id} = ${jobs.bu_id}
+      relationship: many_to_one
+      
+    - join: facts_user_sent
+      sql_on: |
+        ${email.bu_id} = ${facts_user_sent.bu_id}
+        AND ${email.subscriber_id} = ${facts_user_sent.subscriber_id}
+      relationship: many_to_one
+    
       
 
 ### Redshift Admin ###
