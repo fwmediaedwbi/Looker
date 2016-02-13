@@ -21,7 +21,7 @@
               , count ( case when opens_dt > (current_date - 7) then 1 else 0 end) as emails_opened_in_the_last_7_days
               , count ( case when opens_dt > (current_date - 14) then 1 else 0 end) as emails_opened_in_the_last_14_days
               , count ( case when opens_dt > (current_date - 30) then 1 else 0 end) as emails_opened_in_the_last_30_days
-              , count ( case when opens_dt > (current_date - 60) then 1_id else 0 end) as emails_opened_in_the_last_60_days
+              , count ( case when opens_dt > (current_date - 60) then 1 else 0 end) as emails_opened_in_the_last_60_days
               , count ( case when opens_dt > (current_date - 90) then 1 else 0 end) as emails_opened_in_the_last_90_days
               
               , sum ( case when clicks_dt is NULL then 0 else 1 end) as clicks
@@ -35,7 +35,7 @@
               , avg( datediff( day,sent_dt, opens_dt)) as average_days_between_sent_and_open
               , avg( case when sent_dt > (current_date - 14) then datediff(day,sent_dt, opens_dt) else NULL end) as average_days_between_sent_and_open_in_last_14_days
               
-            from fw.emails
+            from fw.email
             
             group by 1,2
 
