@@ -3,59 +3,9 @@
 - include: "*.view.lookml"       # include all the views
 - include: "*.dashboard.lookml"  # include all the dashboards
 
-
-- explore: emails
-  from: sent
-  persist_for: 6 hours
-  joins:
-    - join: bu
-      type: left_outer 
-      sql_on: ${emails.bu_id} = ${bu.bu_id}
-      relationship: many_to_one
-
-    - join: jobs
-      type: left_outer 
-      sql_on: ${emails.job_id} = ${jobs.job_id}
-      relationship: many_to_one
-      
-    - join: clicks
-      type: left_outer
-      sql_on: ${emails.job_id} = ${clicks.job_id} AND ${emails.subscriber_id} = ${clicks.subscriber_id}
-      relationship: one_to_many
-      
-    - join: complaints
-      type: left_outer
-      sql_on: ${emails.job_id} = ${complaints.job_id} AND ${emails.subscriber_id} = ${complaints.subscriber_id}
-      relationship: one_to_many
-      
-    - join: opens
-      type: left_outer
-      sql_on: ${emails.job_id} = ${opens.job_id} AND ${emails.subscriber_id} = ${opens.subscriber_id}
-      relationship: one_to_many
-      
-#     - join: subscribed
-#       type: left_outer
-#       sql_on: ${} = ${}
-#       relationship:
-      
-    - join: unsubscribe
-      type: left_outer
-      sql_on: ${emails.job_id} = ${unsubscribe.job_id} AND ${emails.subscriber_id} = ${unsubscribe.subscriber_id}
-      relationship: one_to_many
-      
-#     - join: users
-#       type: left_outer
-#       sql_on: ${} = ${}
-#       relationship:
-
-    - join: facts_user_sent
-      sql_on: |
-        ${emails.bu_id} = ${facts_user_sent.bu_id}
-        AND ${emails.subscriber_id} = ${facts_user_sent.subscriber_id}
-      relationship: many_to_one
-      
       
 - explore: email
+  persist_for: 6 hours
   joins:
     - join: jobs
       sql_on: |
@@ -67,6 +17,10 @@
       sql_on: |
         ${email.bu_id} = ${facts_user_sent.bu_id}
         AND ${email.subscriber_id} = ${facts_user_sent.subscriber_id}
+      relationship: many_to_one
+      
+    - join: bu
+      sql_on: ${email.bu_id} = ${bu.bu_id}
       relationship: many_to_one
     
       

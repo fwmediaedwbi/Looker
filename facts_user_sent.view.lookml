@@ -71,10 +71,10 @@
   - dimension: emails_received_in_the_last_14_days
     view_label: "Cohort"
     sql: |
-      CASE  WHEN ${emails_sent_in_the_last_14_days} <6 THEN "Less than 6"
-            WHEN ${emails_sent_in_the_last_14_days} <15 THEN "Less than 15"
-            WHEN ${emails_sent_in_the_last_14_days} <25 THEN "Less than 25"
-            ELSE "Over 25" END
+      CASE  WHEN ${emails_sent_in_the_last_14_days} <6 THEN '1. Less than 6 emails'
+            WHEN ${emails_sent_in_the_last_14_days} <15 THEN '2. 7 to 14 emails'
+            WHEN ${emails_sent_in_the_last_14_days} <25 THEN '3. 15 to 24 emails'
+            ELSE '4. Over 25 emails' END
 
   - dimension: "emails_sent_in_the_last_30_days"
     type: number
@@ -154,7 +154,7 @@
     
   - measure: users
     type: count_distinct
-    sql: subscriber_id||bu_id
+    sql: ${subscriber_id}||${bu_id}
 
   sets:
     detail:
