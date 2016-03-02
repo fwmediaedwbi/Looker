@@ -21,7 +21,7 @@
 
   - dimension_group: event_sent
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [time, date, week, month, quarter, quarter_of_year, year, hour_of_day, day_of_week, ]
     sql: ${TABLE}.sent_dt
     
   - dimension_group: event_open
