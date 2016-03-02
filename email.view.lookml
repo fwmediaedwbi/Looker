@@ -5,7 +5,7 @@
 ### Table IDS
   - dimension: bu_id
     type: number
-    # hidden: true
+    hidden: true
     sql: ${TABLE}.bu_id
     
   - dimension: job_id
@@ -55,11 +55,11 @@
     type: string
     sql: ${TABLE}.clicks_link_content
 
-  - dimension: clicks_triggered_send_customer_key
+  - dimension: clicks_customer_key
     type: string
     sql: ${TABLE}.clicks_triggered_send_customer_key
 
-  - dimension: clicks_triggered_send_definition_object_id
+  - dimension: clicks_definition_object_id
     type: string
     sql: ${TABLE}.clicks_triggered_send_definition_object_id
     
@@ -67,11 +67,11 @@
     type: string
     sql: ${TABLE}.subscriber_key
     
-  - dimension: opens_triggered_send_customer_key
+  - dimension: opens_customer_key
     type: string
     sql: ${TABLE}.opens_triggered_send_customer_key
 
-  - dimension: opens_triggered_send_definition_object_id
+  - dimension: opens_definition_object_id
     type: string
     sql: ${TABLE}.opens_triggered_send_definition_object_id
 

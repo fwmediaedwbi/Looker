@@ -10,10 +10,11 @@
   - dimension: bu
     type: string
     sql: ${TABLE}.bu
+    hidden: true
 
   - dimension: bu_id
     type: number
-    # hidden: true
+    hidden: true
     sql: ${TABLE}.bu_id
 
   - dimension: email_id
@@ -33,10 +34,12 @@
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.event_dt
+    hidden: true
 
   - dimension: event_id
     type: number
     sql: ${TABLE}.event_id
+    hidden: true
 
   - dimension: from_email
     type: string
@@ -49,10 +52,6 @@
   - dimension: send_type
     type: string
     sql: ${TABLE}.send_type
-
-  - measure: count
-    type: count
-    drill_fields: detail*
 
 
   # ----- Sets of fields for drilling ------
