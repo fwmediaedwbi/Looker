@@ -22,6 +22,11 @@
     - join: bu
       sql_on: ${email.bu_id} = ${bu.bu_id}
       relationship: many_to_one
+      
+    - join: dim_date
+      sql_on: ${email.event_sent_date} = ${dim_date.date_date}
+      relationship: many_to_one
+      view_label: "Dates"
     
       
 

@@ -20,29 +20,35 @@
 ### Timestamps
 
   - dimension_group: event_sent
+    label: "Email Sent Filter"
     type: time
-    timeframes: [time, date, week, month, quarter, quarter_of_year, year, hour_of_day, day_of_week, ]
+    timeframes: [date, hour_of_day]
     sql: ${TABLE}.sent_dt
+    view_label: "Dates"
     
   - dimension_group: event_open
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, hour_of_day]
     sql: ${TABLE}.opens_dt
+    view_label: "Dates"
 
   - dimension_group: event_click
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, hour_of_day]
     sql: ${TABLE}.clicks_dt
+    view_label: "Dates"
     
   - dimension_group: event_complaint
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, hour_of_day]
     sql: ${TABLE}.complaints_dt
+    view_label: "Dates"
     
   - dimension_group: event_unsubscribe
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, week, month, hour_of_day]
     sql: ${TABLE}.unsubscribe_dt
+    view_label: "Dates"
     
 ### Other dimensions
 
