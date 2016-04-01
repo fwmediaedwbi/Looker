@@ -5,7 +5,7 @@
 
       
 - explore: email
-  persist_for: 6 hours
+  persist_for: 12 hours
   joins:
     - join: jobs
       sql_on: |
