@@ -27,8 +27,34 @@
       sql_on: ${email.event_sent_date} = ${dim_date.date_date}
       relationship: many_to_one
       view_label: "Dates"
+
+
+
+- explore: sales_flat_order_item
+  view_label: 'Order Items'
+  persist_for: 1 hour
+  always_join: [sales_flat_order]
+  joins:
+    - join: sales_flat_order
+      view_label: 'Orders'
+      relationship: many_to_one
+      sql_on: ${sales_flat_order_item.order_id} = ${sales_flat_order.order_id}
     
-      
+    - join: sales_flat_order_address_billing
+      view_label: 'Billing Address'
+      from: sales_flat_order_address
+      relationship: many_to_one
+      sql_on: ${sales_flat_order.billing_address_id} = ${sales_flat_order_address_billing.entity_id}
+    
+    - join: sales_flat_order_address_shipping
+      view_label: 'Shipping Address'
+      from: sales_flat_order_address
+      relationship: many_to_one
+      sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address_shipping.entity_id}
+    
+
+
+
 
 ### Redshift Admin ###
 - explore: data_loads
