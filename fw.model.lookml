@@ -31,6 +31,7 @@
 
 
 - explore: sales_flat_order_item
+  label: 'Orders'
   view_label: 'Order Items'
   persist_for: 1 hour
   always_join: [sales_flat_order]

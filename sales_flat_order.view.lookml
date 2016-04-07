@@ -5,10 +5,12 @@
   - dimension: adjustment_negative
     type: number
     sql: ${TABLE}.adjustment_negative
+    value_format: '$#,##0.00'
 
   - dimension: adjustment_positive
     type: number
     sql: ${TABLE}.adjustment_positive
+    hidden: true
 
   - dimension: applied_rule_ids
     type: string
@@ -17,10 +19,12 @@
   - dimension: base_adjustment_negative
     type: number
     sql: ${TABLE}.base_adjustment_negative
+    value_format: '$#,##0.00'
 
   - dimension: base_adjustment_positive
     type: number
     sql: ${TABLE}.base_adjustment_positive
+    hidden: true
 
   - dimension: base_currency_code
     type: string
@@ -29,114 +33,142 @@
   - dimension: base_customer_balance_amount
     type: number
     sql: ${TABLE}.base_customer_balance_amount
+    hidden: true
 
   - dimension: base_discount_amount
     type: number
     sql: ${TABLE}.base_discount_amount
+    value_format: '$#,##0.00'
 
   - dimension: base_discount_canceled
     type: number
     sql: ${TABLE}.base_discount_canceled
+    value_format: '$#,##0.00'
 
   - dimension: base_discount_invoiced
     type: number
     sql: ${TABLE}.base_discount_invoiced
+    value_format: '$#,##0.00'
 
   - dimension: base_discount_refunded
     type: number
     sql: ${TABLE}.base_discount_refunded
+    value_format: '$#,##0.00'
 
   - dimension: base_gift_cards_amount
     type: number
     sql: ${TABLE}.base_gift_cards_amount
+    value_format: '$#,##0.00'
 
   - dimension: base_gift_cards_invoiced
     type: number
     sql: ${TABLE}.base_gift_cards_invoiced
+    value_format: '$#,##0.00'
 
   - dimension: base_gift_cards_refunded
     type: number
     sql: ${TABLE}.base_gift_cards_refunded
+    value_format: '$#,##0.00'
 
   - dimension: base_grand_total
     type: number
     sql: ${TABLE}.base_grand_total
+    value_format: '$#,##0.00'
 
   - dimension: base_hidden_tax_amount
     type: number
     sql: ${TABLE}.base_hidden_tax_amount
+    hidden: true
 
   - dimension: base_hidden_tax_invoiced
     type: number
     sql: ${TABLE}.base_hidden_tax_invoiced
+    hidden: true
 
   - dimension: base_hidden_tax_refunded
     type: number
     sql: ${TABLE}.base_hidden_tax_refunded
+    hidden: true
 
   - dimension: base_reward_currency_amount
     type: number
     sql: ${TABLE}.base_reward_currency_amount
+    hidden: true
 
   - dimension: base_shipping_amount
     type: number
     sql: ${TABLE}.base_shipping_amount
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_canceled
     type: number
     sql: ${TABLE}.base_shipping_canceled
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_discount_amount
     type: number
     sql: ${TABLE}.base_shipping_discount_amount
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_hidden_tax_amnt
     type: number
     sql: ${TABLE}.base_shipping_hidden_tax_amnt
+    hidden: true
 
   - dimension: base_shipping_incl_tax
     type: number
     sql: ${TABLE}.base_shipping_incl_tax
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_invoiced
     type: number
     sql: ${TABLE}.base_shipping_invoiced
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_refunded
     type: number
     sql: ${TABLE}.base_shipping_refunded
+    value_format: '$#,##0.00'
 
   - dimension: base_shipping_tax_amount
     type: number
     sql: ${TABLE}.base_shipping_tax_amount
+    hidden: true
 
   - dimension: base_shipping_tax_refunded
     type: number
     sql: ${TABLE}.base_shipping_tax_refunded
+    hidden: true
 
   - dimension: base_subtotal
     type: number
     sql: ${TABLE}.base_subtotal
+    value_format: '$#,##0.00'
 
   - dimension: base_subtotal_canceled
     type: number
     sql: ${TABLE}.base_subtotal_canceled
+    value_format: '$#,##0.00'
 
   - dimension: base_subtotal_incl_tax
     type: number
     sql: ${TABLE}.base_subtotal_incl_tax
+    value_format: '$#,##0.00'
 
   - dimension: base_subtotal_invoiced
     type: number
     sql: ${TABLE}.base_subtotal_invoiced
+    value_format: '$#,##0.00'
 
   - dimension: base_subtotal_refunded
     type: number
     sql: ${TABLE}.base_subtotal_refunded
+    value_format: '$#,##0.00'
 
   - dimension: base_tax_amount
     type: number
     sql: ${TABLE}.base_tax_amount
+    value_format: '$#,##0.00'
 
   - dimension: base_tax_canceled
     type: number
@@ -329,6 +361,7 @@
   - dimension: grand_total
     type: number
     sql: ${TABLE}.grand_total
+    value_format: '$#,##0.00'
 
   - dimension: gw_base_price
     type: number
@@ -417,6 +450,7 @@
   - dimension: paypal_ipn_customer_notified
     type: number
     sql: ${TABLE}.paypal_ipn_customer_notified
+    hidden: true
 
   - dimension: protect_code
     type: string
@@ -461,6 +495,7 @@
   - dimension: shipping_amount
     type: number
     sql: ${TABLE}.shipping_amount
+    value_format: '$#,##0.00'
 
   - dimension: shipping_canceled
     type: number
@@ -533,6 +568,7 @@
   - dimension: subtotal
     type: number
     sql: ${TABLE}.subtotal
+    value_format: '$#,##0.00'
 
   - dimension: subtotal_canceled
     type: number
@@ -553,6 +589,7 @@
   - dimension: tax_amount
     type: number
     sql: ${TABLE}.tax_amount
+    value_format: '$#,##0.00'
 
   - dimension: tax_canceled
     type: number
