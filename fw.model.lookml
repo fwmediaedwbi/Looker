@@ -31,6 +31,7 @@
 
 - explore: fact_email_ct
   label: 'Email Facts'
+  view_label: 'Email Counts'
   persist_for: 12 hours
   joins:
     - join: jobs
@@ -44,9 +45,10 @@
       relationship: many_to_one
     
     - join: dim_date
+      view_label: "Dates"
       sql_on: ${fact_email_ct.sent_date} = ${dim_date.date_date}
       relationship: many_to_one
-      view_label: "Dates"
+    
 
 
 

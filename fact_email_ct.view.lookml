@@ -10,9 +10,9 @@
         , DATE_TRUNC('d', sent_dt) as sent_dt
         , COUNT(sent_dt) AS sent_count
         , COUNT(opens_dt) AS open_count
-        , COUNT(clicks_dt) AS clicks_count
+        , COUNT(clicks_dt) AS click_count
         , COUNT(unsubscribe_dt) AS unsubscribe_count
-        , COUNT(complaints_dt) AS complaints_count
+        , COUNT(complaints_dt) AS complaint_count
       FROM fw.email
       GROUP BY 1, 2, 3
 
@@ -42,17 +42,17 @@
       type: number
       sql: ${TABLE}.open_count
     
-    - dimension: job_clicks_count
+    - dimension: job_click_count
       type: number
-      sql: ${TABLE}.clicks_count
+      sql: ${TABLE}.click_count
     
     - dimension: job_unsubscribe_count
       type: number
       sql: ${TABLE}.unsubscribe_count
     
-    - dimension: job_complaints_count
+    - dimension: job_complaint_count
       type: number
-      sql: ${TABLE}.complaints_count
+      sql: ${TABLE}.complaint_count
 
 
 
@@ -60,38 +60,38 @@
       type: sum
       sql: ${job_sent_count}
     
-    - measure: total_open
+    - measure: total_opened
       type: sum
       sql: ${job_open_count}
     
     - measure: total_clicks
       type: sum
-      sql: ${job_clicks_count}
+      sql: ${job_click_count}
     
-    - measure: total_unsubscribe
+    - measure: total_unsubscribed
       type: sum
       sql: ${job_unsubscribe_count}
     
     - measure: total_complaints
       type: sum
-      sql: ${job_complaints_count}
+      sql: ${job_complaint_count}
     
     - measure: open_rate
       type: number
-      sql: 1.0 * ${total_open}/NULLIF(${total_sent},0)
+      sql: 1.0 * ${total_opened}/NULLIF(${total_sent},0)
       value_format: '0.00%'
     
-    - measure: clicks_rate
+    - measure: click_rate
       type: number
-      sql: 1.0 * ${total_clicks}/NULLIF(${total_open},0)
+      sql: 1.0 * ${total_clicks}/NULLIF(${total_opened},0)
       value_format: '0.00%'
     
     - measure: unsubscribe_rate
       type: number
-      sql: 1.0 * ${total_unsubscribe}/NULLIF(${total_sent},0)
+      sql: 1.0 * ${total_unsubscribed}/NULLIF(${total_sent},0)
       value_format: '0.00%'
     
-    - measure: complaints_rate
+    - measure: complaint_rate
       type: number
       sql: 1.0 * ${total_complaints}/NULLIF(${total_sent},0)
       value_format: '0.00%'
