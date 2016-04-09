@@ -2,6 +2,12 @@
   sql_table_name: fwmagento.sales_flat_order
   fields:
 
+
+  - dimension: order_id
+    primary_key: true
+    type: number
+    sql: ${TABLE}.entity_id
+
   - dimension: adjustment_negative
     type: number
     sql: ${TABLE}.adjustment_negative
@@ -330,10 +336,6 @@
     type: number
     sql: ${TABLE}.email_sent
 
-  - dimension: order_id
-    type: number
-    sql: ${TABLE}.entity_id
-
   - dimension: ext_order_id
     type: string
     sql: ${TABLE}.ext_order_id
@@ -555,7 +557,7 @@
 
   - dimension: store_name
     type: string
-    sql: ${TABLE}.store_name
+    sql: LEFT(${TABLE}.store_name, CHARINDEX('.com', ${TABLE}.store_name)+3)
 
   - dimension: store_to_base_rate
     type: number
@@ -661,9 +663,34 @@
     type: string
     sql: ${TABLE}.x_forwarded_for
 
+
+
   - measure: count
     type: count
     drill_fields: detail*
+  
+  - measure: sum_of_grand_total
+    type: sum
+    sql: ${TABLE}.grand_total
+    value_format: '$#,##0.00'
+  
+  - measure: sum_of_subtotal
+    description: "Total before shipping and tax"
+    type: sum
+    sql: ${TABLE}.subtotal
+    value_format: '$#,##0.00'
+
+  - measure: avg_orders_per_cust
+    label: "Average Order Count per Customer"
+    type: number
+    sql: COUNT(${TABLE}.entity_id)/COUNT(DISTINCT ${TABLE}.customer_email)
+    value_format: '$#,##0.00'
+  
+  - measure: avg_rev_per_cust
+    label: "Average Revenue per Customer"
+    type: number
+    sql: SUM(${TABLE}.subtotal)/COUNT(DISTINCT ${TABLE}.customer_email)
+    value_format: '$#,##0.00'
 
 
   # ----- Sets of fields for drilling ------

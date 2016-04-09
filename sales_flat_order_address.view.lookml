@@ -55,7 +55,7 @@
     sql: ${TABLE}.parent_id
 
   - dimension: postcode
-    type: string
+    type: zipcode
     sql: ${TABLE}.postcode
 
   - dimension: prefix
