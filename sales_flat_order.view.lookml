@@ -252,7 +252,7 @@
 
   - dimension_group: customer_dob
     type: time
-    timeframes: [time, date, week, month]
+    timeframes: [date, month, year]
     sql: ${TABLE}.customer_dob
 
   - dimension: customer_email
@@ -684,7 +684,7 @@
     label: "Average Order Count per Customer"
     type: number
     sql: COUNT(${TABLE}.entity_id)/COUNT(DISTINCT ${TABLE}.customer_email)
-    value_format: '$#,##0.00'
+    value_format: '#,##0'
   
   - measure: avg_rev_per_cust
     label: "Average Revenue per Customer"

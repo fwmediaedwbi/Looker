@@ -1,4 +1,4 @@
-- view: fact_email_ct
+- view: facts_email_ct
 
   derived_table:
     sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*9)/(60*60*24))

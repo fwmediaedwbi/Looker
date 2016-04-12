@@ -29,24 +29,24 @@
       view_label: "Dates"
 
 
-- explore: fact_email_ct
+- explore: facts_email_ct
   label: 'Email Facts'
   view_label: 'Email Counts'
   persist_for: 12 hours
   joins:
     - join: jobs
       sql_on: |
-        ${fact_email_ct.job_id} = ${jobs.job_id}
-        AND ${fact_email_ct.bu_id} = ${jobs.bu_id}
+        ${facts_email_ct.job_id} = ${jobs.job_id}
+        AND ${facts_email_ct.bu_id} = ${jobs.bu_id}
       relationship: many_to_one
     
     - join: bu
-      sql_on: ${fact_email_ct.bu_id} = ${bu.bu_id}
+      sql_on: ${facts_email_ct.bu_id} = ${bu.bu_id}
       relationship: many_to_one
     
     - join: dim_date
       view_label: "Dates"
-      sql_on: ${fact_email_ct.sent_date} = ${dim_date.date_date}
+      sql_on: ${facts_email_ct.sent_date} = ${dim_date.date_date}
       relationship: many_to_one
     
 
@@ -74,9 +74,11 @@
       from: sales_flat_order_address
       relationship: many_to_one
       sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address_shipping.entity_id}
-    
 
 
+- explore: facts_customers
+  label: 'Customers'
+  view_label: 'Customers'
 
 
 ### Redshift Admin ###
