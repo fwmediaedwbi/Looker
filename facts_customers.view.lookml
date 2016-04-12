@@ -2,6 +2,9 @@
 
 
   derived_table:
+    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*10)/(60*60*24))
+    distkey: customer_email
+    sortkeys: [customer_email, bu_id]
     sql: |
       SELECT e.*, bu.bu_name
         , o.store
@@ -42,7 +45,7 @@
       sql: CONCAT(${TABLE}.customer_email,bu_id,store)
     
     - dimension: customer_email
-      type: number
+      type: string
       sql: ${TABLE}.customer_email
     
     - dimension: bu_id
@@ -70,11 +73,11 @@
       sql: ${TABLE}.complaint_count
     
     - dimension: bu_name
-      type: number
+      type: string
       sql: ${TABLE}.bu_name
     
     - dimension: store
-      type: number
+      type: string
       sql: ${TABLE}.store
     
     - dimension: subtotal_sum
