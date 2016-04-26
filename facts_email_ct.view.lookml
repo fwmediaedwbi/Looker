@@ -78,21 +78,25 @@
       sql: ${job_complaint_count}
     
     - measure: open_rate
+      description: "= total emails opened / total emails sent"
       type: number
       sql: 1.0 * ${total_opened}/NULLIF(${total_sent},0)
       value_format: '0.00%'
     
     - measure: click_rate
+      description: "= total emails clicked / total emails opened"
       type: number
       sql: 1.0 * ${total_clicks}/NULLIF(${total_opened},0)
       value_format: '0.00%'
     
     - measure: unsubscribe_rate
+      description: "= total unsubscribed / total emails sent"
       type: number
       sql: 1.0 * ${total_unsubscribed}/NULLIF(${total_sent},0)
       value_format: '0.00%'
     
     - measure: complaint_rate
+      description: "= total complaints / total emails sent"
       type: number
       sql: 1.0 * ${total_complaints}/NULLIF(${total_sent},0)
       value_format: '0.00%'
@@ -108,7 +112,7 @@
         sent_date: '1 day ago'
     
     - measure: total_opened_yesterday
-      description: "Total emails opened for the last complete day"
+      description: "Total emails opened for emails sent on the last complete day"
       view_label: "Open Rate Daily Change"
       type: sum
       sql: ${job_open_count}
@@ -116,6 +120,7 @@
         sent_date: '1 day ago'
     
     - measure: open_rate_yesterday
+      description: "= total emails opened / total emails sent"
       view_label: "Open Rate Daily Change"
       type: number
       sql: 1.0 * ${total_opened_yesterday}/NULLIF(${total_sent_yesterday},0)
@@ -131,7 +136,7 @@
         sent_date: '2 days ago'
     
     - measure: total_opened_previous_day
-      description: "Total emails sent two days ago"
+      description: "Total emails opened for emails sent two days ago"
       view_label: "Open Rate Daily Change"
       type: sum
       sql: ${job_open_count}
@@ -139,6 +144,7 @@
         sent_date: '2 days ago'
     
     - measure: open_rate_previous_day
+      description: "= total emails opened / total emails sent"
       view_label: "Open Rate Daily Change"
       type: number
       sql: 1.0 * ${total_opened_previous_day}/NULLIF(${total_sent_previous_day},0)
@@ -146,10 +152,10 @@
       
     
     - measure: open_rate_change
-      description: "=(yesterday's rate / previous day's rate) - 1"
+      description: "= (yesterday's rate - previous day's rate) / previous day's rate)"
       view_label: "Open Rate Daily Change"
       type: number
-      sql: (${open_rate_yesterday} / NULLIF(${open_rate_previous_day},0) ) - 1
+      sql: (${open_rate_yesterday} - ${open_rate_previous_day}) / NULLIF(${open_rate_previous_day},0)
       value_format: '0.00%'
       
       
