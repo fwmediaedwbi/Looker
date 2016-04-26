@@ -1,7 +1,8 @@
 - view: facts_email_ct
 
   derived_table:
-    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*9)/(60*60*24))
+    sql_trigger_value: SELECT FLOOR((EXTRACT(epoch from GETDATE()) - 60*60*13)/(60*60*24))
+    # set to update at 13 UTC (5am MT, 7am ET)
     distkey: job_id
     sortkeys: [sent_dt, bu_id, job_id]
     sql: |
@@ -96,3 +97,59 @@
       sql: 1.0 * ${total_complaints}/NULLIF(${total_sent},0)
       value_format: '0.00%'
 
+
+#### Open Rate Changes ####
+    - measure: total_sent_yesterday
+      description: "Total emails sent for the last complete day"
+      view_label: "Open Rate Daily Change"
+      type: sum
+      sql: ${job_sent_count}
+      filters:
+        sent_date: '1 day ago'
+    
+    - measure: total_opened_yesterday
+      description: "Total emails opened for the last complete day"
+      view_label: "Open Rate Daily Change"
+      type: sum
+      sql: ${job_open_count}
+      filters:
+        sent_date: '1 day ago'
+    
+    - measure: open_rate_yesterday
+      view_label: "Open Rate Daily Change"
+      type: number
+      sql: 1.0 * ${total_opened_yesterday}/NULLIF(${total_sent_yesterday},0)
+      value_format: '0.00%'
+    
+    
+    - measure: total_sent_previous_day
+      description: "Total emails sent two days ago"
+      view_label: "Open Rate Daily Change"
+      type: sum
+      sql: ${job_sent_count}
+      filters:
+        sent_date: '2 days ago'
+    
+    - measure: total_opened_previous_day
+      description: "Total emails sent two days ago"
+      view_label: "Open Rate Daily Change"
+      type: sum
+      sql: ${job_open_count}
+      filters:
+        sent_date: '2 days ago'
+    
+    - measure: open_rate_previous_day
+      view_label: "Open Rate Daily Change"
+      type: number
+      sql: 1.0 * ${total_opened_previous_day}/NULLIF(${total_sent_previous_day},0)
+      value_format: '0.00%'
+      
+    
+    - measure: open_rate_change
+      description: "=(yesterday's rate / previous day's rate) - 1"
+      view_label: "Open Rate Daily Change"
+      type: number
+      sql: (${open_rate_yesterday} / NULLIF(${open_rate_previous_day},0) ) - 1
+      value_format: '0.00%'
+      
+      
