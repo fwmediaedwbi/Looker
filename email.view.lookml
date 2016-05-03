@@ -80,6 +80,11 @@
   - dimension: opens_definition_object_id
     type: string
     sql: ${TABLE}.opens_triggered_send_definition_object_id
+  
+  - dimension: opened_first_day
+    type: yesno
+    sql: CASE WHEN ${TABLE}.opens_dt < DATEADD(day,1,${TABLE}.sent_dt) THEN TRUE ELSE FALSE END
+    hidden: true
 
 ### DB relevant fields
 
@@ -139,4 +144,63 @@
     sql: 1.0 * ${unsubscribes}/NULLIF(${sents},0)
     value_format: '0.00%'
     description: "Count of unsubscribes over count of sents."
+
+
+
+#### Open Rate Changes ####
+  - measure: total_sent_yesterday
+    description: "Total emails sent for the last complete day"
+    view_label: "Open Rate Daily Change"
+    type: count
+    filters:
+      event_sent_date: '1 day ago'
+  
+  - measure: total_opened_yesterday
+    description: "Total emails opened in the first 24 hrs for emails sent the last complete day"
+    view_label: "Open Rate Daily Change"
+    type: sum
+    sql: CASE WHEN ${TABLE}.opens_dt IS NULL THEN 0 ELSE 1 END
+    filters:
+      event_sent_date: '1 day ago'
+      opened_first_day: 'yes'
+  
+  - measure: open_rate_yesterday
+    description: "= total emails opened / total emails sent"
+    view_label: "Open Rate Daily Change"
+    type: number
+    sql: 1.0 * ${total_opened_yesterday}/NULLIF(${total_sent_yesterday},0)
+    value_format: '0.00%'
+  
+  
+  - measure: total_sent_previous_day
+    description: "Total emails sent two days ago"
+    view_label: "Open Rate Daily Change"
+    type: count
+    filters:
+      event_sent_date: '2 days ago'
+  
+  - measure: total_opened_previous_day
+    description: "Total emails opened in the first 24 hrs for emails sent two days ago"
+    view_label: "Open Rate Daily Change"
+    type: sum
+    sql: CASE WHEN ${TABLE}.opens_dt IS NULL THEN 0 ELSE 1 END
+    filters:
+      event_sent_date: '2 days ago'
+      opened_first_day: 'yes'
+  
+  - measure: open_rate_previous_day
+    description: "= total emails opened / total emails sent"
+    view_label: "Open Rate Daily Change"
+    type: number
+    sql: 1.0 * ${total_opened_previous_day}/NULLIF(${total_sent_previous_day},0)
+    value_format: '0.00%'
+    
+  
+  - measure: open_rate_change
+    description: "= (yesterday's rate - previous day's rate) / previous day's rate)"
+    view_label: "Open Rate Daily Change"
+    type: number
+    sql: (${open_rate_yesterday} - ${open_rate_previous_day}) / NULLIF(${open_rate_previous_day},0)
+    value_format: '0.00%'
+
 
