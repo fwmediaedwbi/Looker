@@ -1,5 +1,5 @@
 - view: email
-  sql_table_name: fw.email
+  sql_table_name: email
   fields:
 
 ### Table IDS

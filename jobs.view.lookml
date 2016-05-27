@@ -1,5 +1,5 @@
 - view: jobs
-  sql_table_name: fw.jobs
+  sql_table_name: jobs
   fields:
 
   - dimension: job_id

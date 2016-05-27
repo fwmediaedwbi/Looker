@@ -1,5 +1,5 @@
 - view: bu
-  sql_table_name: fw.bu
+  sql_table_name: bu
   fields:
 
   - dimension: bu_id

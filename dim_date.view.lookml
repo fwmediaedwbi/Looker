@@ -1,5 +1,5 @@
 - view: dim_date
-  sql_table_name: public.dim_date
+  sql_table_name: dim_date
   fields:
 
   - dimension: sent_day_name
