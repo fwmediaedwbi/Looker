@@ -22,10 +22,12 @@
     
     - join: bu
       sql_on: ${email.bu_id} = ${bu.bu_id}
+      type: inner
       relationship: many_to_one
     
     - join: dim_date
-      sql_on: ${email.event_sent_date} = ${dim_date.date_date}
+      sql_on: date_trunc( day, email.sent_dt ) = to_timestamp( dim_date.daydate )
+      type: inner
       relationship: many_to_one
       view_label: "Dates"
 
